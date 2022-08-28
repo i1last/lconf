@@ -1,61 +1,73 @@
 #! /bin/bash
 
-# === АВТОСТАРТ
-# --- КОМАНДЫ
+
+# === AUTO START === >>>
+
+# --- COMANDs ---
 xset r rate 170 40 &
 setxkbmap -layout us,ru -option grp:alt_shift_toggle &
-# --- ПРОГРАММЫ
+xsetroot -cursor_name left_ptr &
+
+# --- APPs ---
 sxhkd &
 polybar example &
 nitrogen --restore &
-xsetroot -cursor_name left_ptr &
 #firefox &
-xfce4-terminal &
+#xfce4-terminal &
 
-#ВОРКСПЕЙСЫ
-bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+# <<< === AUTO START === 
 
 
-#РАМКИ И ГАПСЫ
+
+# === FRAMEs AND GAPS === >>>
+
 bspc config border_width         1
 bspc config window_gap           5
 
+# --- GAPS ONLY BETWEEN WINDOWS ---
+bspc config window_gap $gap;
+bspc config top_padding -$(($gap+2))
+bspc config left_padding -$(($gap+2))
+bspc config right_padding -$(($gap+4))
+bspc config bottom_padding $(($PANEL_HEIGHT-$gap))
+
+# --- DISABLING GAPS WITH ONE WINDOW ---
+bspc config borderless_monocle   false 
+bspc config gapless_monocle      false
+bspc config paddingless_monocle	 true
+
+# --- FULL SCREEN MODE WITH ONE WINDOW ---
+bspc config single_monocle	     false
+
+# <<< === FRAMEs AND GAPS ===
+
+
+
+# === COLOR OF WINDOWs === >>>
+
+#--- FRAMES IN DIFFERENT STATES ---
 bspc config normal_border_color "#23252e"
 bspc config active_border_color "#23252e"
 bspc config focused_border_color "#f9f8fe"
 
-#ЦВЕТ ПРОСТРАНСТВА ПРИ ВЫБОРЕ ПОЛОЖЕНИЯ НОВОГО ОКНАЫ
+# --- SPACE COLOR WHEN SELECTING LOCATION OF NEW WINDOW ---
 bspc config presel_feedback_color "fd2e59"
 
-#ПРИ ПОМОЩИ ЭТОЙ ХРЕНИ МОЖНО СДЕЛАТЬ ГАПСЫ ТОЛЬКО МЕЖДУ ОКНАМИ
-#bspc config window_gap $gap;
-#bspc config top_padding -$(($gap+2))
-#bspc config left_padding -$(($gap+2))
-#bspc config right_padding -$(($gap+4))
-#bspc config bottom_padding $(($PANEL_HEIGHT-$gap))
+# <<< === COLOR OF WINDOWs ===
 
 
 
-#КОФИЦИЕНТ РАЗДЕЛЕНИЯ, СКОЛЬКО ПРОЦЕНТОВ ОСТАНЕТСЯ ОТ РОДИТЕЛЬСКОГО ОКНА ПРИ ОТКРЫТИИ НОВОГО
-bspc config split_ratio          0.5
-#ФОКУС ОКНА НАВЕДЕНИЕМ КУРСОРА
+# === WINDOW FOCUS ON MOUSE HOVER === >>>
+
 bspc config focus_follows_pointer true
 bspc config pointer_modifier	super
 
-#РЕЖИМ МОНОКЛЯ КОГДА ОТКРЫТО ОДНО ОКНО
-bspc config single_monocle	     false
-
-#ОТКЛЮЧЕНИЕ ГАПСОВ РАМОК И ОТСТУПОВ КОГДА ОТКРЫТО ОДНО ОКНО
-bspc config borderless_monocle   false
-bspc config gapless_monocle      false
-bspc config paddingless_monocle	 true
+# <<< === WINDOW FOCUS ON MOUSE HOVER ===
 
 
-#СХЕМЫ СОГЛАСНО КОТОРЫМ БУДУТ ОТКРЫВАТСЯ ОКНА
-#bspc config automatic_scheme	spiral
 
+# === WINDOW BEHAVIOR === >>>
 
-#ПРАВИЛА ОКОН
 #bspc rule -a firefox state=floating follow=off rectangle=1350x900+50+90 desktop='^2'
 #bspc rule -a TelegramDesktop state=floating follow=off desktop='^1'
 #bspc rule -a TelegramDesktop state=floating follow=off rectangle=420x900+1450+90 desktop='^1'
@@ -65,3 +77,23 @@ bspc config paddingless_monocle	 true
 #bspc rule -a Media viewer rectangle=1350x900+285+90 state=floating
 #bspc rule -a Inkscape desktop='^3'
 #bspc rule -a Blender desktop='^2'
+
+# <<< === WINDOW BEHAVIOR ===
+
+
+
+# === WORKSPACEs === >>>
+bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+# <<< === WORKSPACEs ===
+
+
+
+# === WINDOW OPENING SCHEMES === >>>
+
+# --- COEFFICIENT SEPARATION ---
+bspc config split_ratio          0.5
+
+# --- WINDOW DIVISION TYPE ---
+#bspc config automatic_scheme	spiral
+
+# <<< === WINDOW OPENING SCHEMES ===
