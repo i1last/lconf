@@ -1,12 +1,16 @@
 
+
+# === terminal ===
+xfce4-terminal
+#kitty
+
 # === apps ===
 micro
 firefox
-xfce4-terminal
 neofetch
 
 # === utils ===
 #man
-3htop
+#htop
 #duf
 #exa
