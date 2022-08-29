@@ -56,7 +56,7 @@ bspc config single_monocle	     false
 bspc config focused_border_color "#707070"
 
 # --- space color when selecting location of new window ---
-bspc config presel_feedback_color "fd2e59"
+bspc config presel_feedback_color "#65a886"
 
 ####   COLOR OF WINDOWs   ####
 ##############################
@@ -67,7 +67,7 @@ bspc config presel_feedback_color "fd2e59"
 ####   WINDOW FOCUS ON MOUSE HOVER   ####
 
 bspc config focus_follows_pointer true
-bspc config pointer_modifier	super
+bspc config pointer_modifier	    super
 
 ####   WINDOW FOCUS ON MOUSE HOVER   ####
 #########################################
