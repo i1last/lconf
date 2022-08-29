@@ -29,11 +29,6 @@ super + shift + e
 #####################################
 ####    BSPWM & SXHKD CONTROL    ####
 
-
-# close {kill} window
-super + {_, shift + }q
-	bspc node -{c}
-
 # restart sxhkd
 super + control + Escape
         pkill -USR1 -x sxhkd
@@ -42,14 +37,17 @@ super + control + Escape
 super + control + {q,r}
         bspc {quit,wm -r}
 
+# close {kill} window
+super + {_, shift + }q
+	bspc node -{c}
+
 # fullscreen mode
 super + f
 	bspc desktop -l next
 
-
-#ПОМЕНЯТЬ МЕСТАМИ ТЕКУЩЕЕ И САМОЕ БОЛЬШОЕ ОКНО ===================================== Не понятно как работает
-#super + g
-#	bspc node -s biggest.window
+# swap current window and largest window
+super + g
+	bspc node -s biggest.window
 
 ####    BSPWM & SXHKD CONTROL    ####
 #####################################
@@ -164,3 +162,15 @@ super + shift + {h,j,k,l}
 
 ####    UNKNOWN    ####
 #######################
+
+
+
+
+
+
+
+
+
+
+
+
