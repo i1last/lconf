@@ -1,252 +1,19 @@
-##########################
-####    START APPs    ####
+########### TESTING ###########
 
-# rofi
-super + z
-	rofi -modi drun -show drun -line-padding 4 \
-                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
-                -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
-
-# terminal
-super + Return
-	xfce4-terminal
-
-# rofi: opened windows
-super + x
-	rofi -modi drun -show window -line-padding 4 \
-                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
-                -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
-
-# rofi: powermenu
-super + shift + e
-     ~/.config/rofi/powermenu.sh
-
-####    START APPs    ####
-##########################
-
-
-
-#####################################
-####    BSPWM & SXHKD CONTROL    ####
-
-# restart sxhkd
-super + control + Escape
-        pkill -USR1 -x sxhkd
-
-# {logout}{restart} BSPWM
-super + control + {q,r}
-        bspc {quit,wm -r}
-
-# close {kill} window
-super + {_, shift + }q
-	bspc node -{c}
-
-# fullscreen mode
-super + f
-	bspc desktop -l next
-
-# swap current window and largest window
-super + g
-	bspc node -s biggest.window
-
-####    BSPWM & SXHKD CONTROL    ####
-#####################################
-
-
-
-#############################
-####    FLAGs CONTROL    ####=============================================Вся эта фигня не понятна
-
-#ПОМЕНЯТЬ СТАТУС ОКНА НА /ТАЙЛОВОЕ/ПСЕВДО ТАЙЛОВОЕ/ПЛАВАЮЩЕЕ/ПОЛНОЭКРАННОЕ
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-#УСТАНОВИТЬ ФЛАГ УЗЛА /ОТМЕЧЕННЫЙ/ЗАЛОЧЕННЫЙ/ЛИПКИЙ/ПРИВАТНЫЙ
-super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
-
-####    FLAGs CONTROL    ####
-#############################
-
-
-
-#############################
-####    FOCUS CONTROL    ####
-
-#ПЕРЕМЕСТИТЬ ОКНО =============================== потестировать и сменить на wasd
-super + {_,shift + }{Left,Down,Up,Right}
-	bspc node -{f,s} {west,south,north,east}
-
-#ВЫДЕЛИТЬ НЕСКОЛЬКО ПРИЛОЖЕНИЙ НАПРИМЕР ЧТО БЫ ПЕРЕМЕСТИТЬ ГРУППУ ПРИЛОЖЕНИЙ НА ДРУГОЙ ВОРКСПЕЙС ===================== потестировать
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
-
-#ПЕРЕКЛЮЧЕНИЕ ПО ОТКРЫТЫМ ПРИЛОЖЕНИЯМ В ПРЕДЕЛАХ ОДНОГО ВОРКСПЕЙСА ===================== потестировать шифт
-super + {_,shift + }q
-	bspc node -f {next,prev}.local.!hidden.window
-
-#ПЕРЕХОД ПО ВОРКСПЕЙСАМ ===================== переназначить на стрелки
-super + bracket{left,right} # bracket == "[]"
+#ПЕРЕХОД ПО ВОРКСПЕЙСАМ
+super + {Left,Right}
 	bspc desktop -f {prev,next}.local
 
-#ВЕРНУТСЯ НА ПРЕДЫДУЩИЙ АКТИВНЫЙ ВОРКСПЕЙС
-super + {grave,Tab}
-	bspc {node,desktop} -f last
+XF86AudioMute
+    volchange.sh volmute
 
-#ПЕРЕХОД НА ПО ИСТОРИИ ОТКРЫТЫХ ПРИЛОЖЕНИЙ
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+XF86AudioRaiseVolume
+    volchange.sh volup
 
-#ПЕРЕКЛЮЧИТСЯ НА ВОРКСПЕЙС ИЛИ ПЕРЕТАЩИТЬ НА НЕГО АКТИВНОЕ ОКНО
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
-
-####    FOCUS CONTROL    ####
-#############################
+XF86AudioLowerVolume
+    volchange.sh voldown
 
 
-
-#####################################
-####    PRELIMINARY SELECTION    ####
-
-#ВЫБРАТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
-super + ctrl + {h,j,k,l}
-	bspc node -p {west,south,north,east}
-
-#ВЫБРАТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
-
-#ОТМЕНИТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
-super + ctrl + space
-	bspc node -p cancel
-
-#ОТМЕНИТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
-super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
-
-####    PRELIMINARY SELECTION    ####
-#####################################
-
-
-
-####################################
-####    RESIZE / MOVE WINDOW    ####
-
-
-#УВЕЛИЧИТЬ ОКНО СДВИНУВ ОДНУ ИЗ ЕГО СТОРОН
-super + alt + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-#УМЕНЬШИТЬ ОКНО СДВИНУВ ОДНУ ИЗ ЕГО СТОРОН
-super + alt + shift + {h,j,k,l}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
-#ПЕРЕМЕЩЕНИЕ ПЛАВАЮЩИХ ОКОН
-super + shift + {h,j,k,l}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
-
-####    RESIZE / MOVE WINDOW    ####
-####################################
-
-
-
-#######################
-####    UNKNOWN    ####
-
-#отправить новейший отмеченный узел в новейший предварительно выбранный узел(яхз что это значит)
-#super + y
-#	bspc node newest.marked.local -n newest.!automatic.local
-
-####    UNKNOWN    ####
-#######################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# super-fullscreen mode
-#super + shift + {f,f}
-#	bspc node -t {fullscreen,tiled}
-
-#ПОМЕНЯТЬ СТАТУС ОКНА НА ТАЙЛОВОЕ/ПЛАВАЮЩЕЕ ==== перевести
-#super + shift + {t,s}
-#	bspc node -t {tiled,floating}
-
-#УСТАНОВИТЬ ФЛАГ УЗЛА /ОТМЕЧЕННЫЙ/ЗАЛОЧЕННЫЙ/ЛИПКИЙ/ПРИВАТНЫЙ ==== непонятно - в архив
-#super + ctrl + {m,x,y,z}
-#	bspc node -g {marked,locked,sticky,private}
-
-# добавить комментарии:
-# control - для wm и sxhkd, shift - для управления окнами, без клавиши модификатора - что то простое и тп
-
-#ВЫДЕЛИТЬ НЕСКОЛЬКО ПРИЛОЖЕНИЙ НАПРИМЕР ЧТО БЫ ПЕРЕМЕСТИТЬ ГРУППУ ПРИЛОЖЕНИЙ НА ДРУГОЙ ВОРКСПЕЙС ===================== сомневаюсь в надобности. перевести и закоментировать
-#super + {p,b,comma,period}
-#	bspc node -f @{parent,brother,first,second}
-
-#ПЕРЕКЛЮЧЕНИЕ ПО ОТКРЫТЫМ ПРИЛОЖЕНИЯМ В ПРЕДЕЛАХ ОДНОГО ВОРКСПЕЙСА ===================== перевести
-#super + {_,shift + }space
-#	bspc node -f {next,prev}.local.!hidden.window
-
-#ПЕРЕХОД ПО ВОРКСПЕЙСАМ ===================== не работает
-#super + bracket{left,right} # bracket == "[]"
-#	bspc desktop -f {prev,next}.local
-
-# переключение воркспейса по порядку вперед и назад ==== в надобности смысла мало, поэтому задокументировать
-#super + {_,shift + }Tab
-#	bspc desktop -f {next,prev}
-	
-#ПЕРЕХОД НА ПО ИСТОРИИ ОТКРЫТЫХ ПРИЛОЖЕНИЙ = задокументировать
-#super + {o,i}
-#	bspc wm -h off; \
-#	bspc node {older,newer} -f; \
-#	bspc wm -h on
-
-#ПЕРЕКЛЮЧИТСЯ НА ВОРКСПЕЙС ИЛИ ПЕРЕТАЩИТЬ НА НЕГО АКТИВНОЕ ОКНО === перевести
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
-	
-
-#ВЫБРАТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО === перевести
-super + ctrl + {a,s,w,d}
-	bspc node -p {west,south,north,east}
-
-#ВЫБРАТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО === не работает == перевести, задокументировать
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
-
-#ОТМЕНИТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
-super + ctrl + space
-	bspc node -p cancel
-
-#ОТМЕНИТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО === зависимость == перевести, задокументровать
-super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
-
-	
 
 
 
@@ -282,11 +49,6 @@ super + shift + e
 #####################################
 ####    BSPWM & SXHKD CONTROL    ####
 
-
-# close {kill} window
-super + {_, shift + }q
-	bspc node -{c}
-
 # restart sxhkd
 super + control + Escape
         pkill -USR1 -x sxhkd
@@ -295,70 +57,59 @@ super + control + Escape
 super + control + {q,r}
         bspc {quit,wm -r}
 
-# fullscreen mode
-super + f
-	bspc desktop -l next
-
-
-#ПОМЕНЯТЬ МЕСТАМИ ТЕКУЩЕЕ И САМОЕ БОЛЬШОЕ ОКНО ===================================== решено в основе
-super + g
-	bspc node -s biggest.window
-
 ####    BSPWM & SXHKD CONTROL    ####
 #####################################
 
 
 
-#############################
-####    FLAGs CONTROL    ####============================================= решено вверху тут
+##############################
+####    WINDOW CONTROL    ####
 
-#ПОМЕНЯТЬ СТАТУС ОКНА НА ТАЙЛОВОЕ/ПЛАВАЮЩЕЕ ==== перевести
-super + shift + {t,t}
-	bspc node -t {tiled,floating}
+# close {kill} window
+super + {_, shift + }q
+	bspc node -{c}
+
+# fullscreen mode
+super + f
+	bspc desktop -l next
 
 # super-fullscreen mode
 super + shift + {f,f}
 	bspc node -t {fullscreen,tiled}
 
-#УСТАНОВИТЬ ФЛАГ УЗЛА /ОТМЕЧЕННЫЙ/ЗАЛОЧЕННЫЙ/ЛИПКИЙ/ПРИВАТНЫЙ ==== непонятно - в архив
-#super + ctrl + {m,x,y,z}
-#	bspc node -g {marked,locked,sticky,private}
+# swap current window and largest window
+#super + g
+#	bspc node -s biggest.window
 
-####    FLAGs CONTROL    ####
-#############################
+# change window mode to tile/floating
+super + shift + {t,t}
+	bspc node -t {tiled,floating}
+
+####    WINDOW CONTROL    ####
+##############################
 
 
 
 #############################
 ####    FOCUS CONTROL    ####
 
-# сменить {расположение} фокус окна
+# move {location} window focus
 super + {_,shift + }{a,s,w,d}
 	bspc node -{f,s} {west,south,north,east}
 
-#11111111111111 ВЫДЕЛИТЬ НЕСКОЛЬКО ПРИЛОЖЕНИЙ НАПРИМЕР ЧТО БЫ ПЕРЕМЕСТИТЬ ГРУППУ ПРИЛОЖЕНИЙ НА ДРУГОЙ ВОРКСПЕЙС ===================== потестировать
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
-
-#ПЕРЕКЛЮЧЕНИЕ ПО ОТКРЫТЫМ ПРИЛОЖЕНИЯМ В ПРЕДЕЛАХ ОДНОГО ВОРКСПЕЙСА ===================== потестировать шифт
-super + {_,shift + }space
+# move focus between windows in this workspace
+super + {_,shift + }Space
 	bspc node -f {next,prev}.local.!hidden.window
 
-#ПЕРЕХОД ПО ВОРКСПЕЙСАМ ===================== не работает
-#super + {k,l} # bracket == "[]"
-#	bspc desktop -f {prev,next}.local
-
-# переключение воркспейса по порядку вперед и назад ==== в надобности смысла мало, поэтому задокументировать
+# switching the workspace in order >>> next hotkey will be broke
 #super + {_,shift + }Tab
 #	bspc desktop -f {next,prev}
-	
-#ПЕРЕХОД НА ПО ИСТОРИИ ОТКРЫТЫХ ПРИЛОЖЕНИЙ = задокументировать
-#super + {o,i}
-#	bspc wm -h off; \
-#	bspc node {older,newer} -f; \
-#	bspc wm -h on
 
-#ПЕРЕКЛЮЧИТСЯ НА ВОРКСПЕЙС ИЛИ ПЕРЕТАЩИТЬ НА НЕГО АКТИВНОЕ ОКНО === перевести
+# switch between the last two workspaces
+super + Tab
+	bspc desktop -f last
+
+# {move window} switch to the selected workspace
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
@@ -370,21 +121,13 @@ super + {_,shift + }{1-9,0}
 #####################################
 ####    PRELIMINARY SELECTION    ####
 
-#ВЫБРАТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО === перевести
+# select where to open window
 super + ctrl + {a,s,w,d}
 	bspc node -p {west,south,north,east}
 
-#ВЫБРАТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО === не работает == перевести, задокументировать
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
-
-#ОТМЕНИТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
+# cancel select where to open window
 super + ctrl + space
-	bspc node -p cancel
-
-#ОТМЕНИТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО === зависимость == перевести, задокументровать
-super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+		bspc node -p cancel
 
 ####    PRELIMINARY SELECTION    ####
 #####################################
@@ -394,17 +137,16 @@ super + ctrl + shift + space
 ####################################
 ####    RESIZE / MOVE WINDOW    ####
 
+# enlarge window by sliding it to one side
+#super + alt + {a,s,w,d}
+#	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
-#УВЕЛИЧИТЬ ОКНО СДВИНУВ ОДНУ ИЗ ЕГО СТОРОН === сомнительное, лучше мышкой - задокументировать
-super + alt + {a,s,w,d}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# minimize window by shifting it to one side
+#super + alt + shift + {a,s,w,d}
+#	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
-#УМЕНЬШИТЬ ОКНО СДВИНУВ ОДНУ ИЗ ЕГО СТОРОН  === сомнительное, лучше мышкой - задокументировать
-super + alt + shift + {a,s,w,d}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
-#ПЕРЕМЕЩЕНИЕ ПЛАВАЮЩИХ ОКОН === если можно мышкой, то задокументировать
-super + control + shift + {Left,Down,Up,Right}
+# moving floating window
+super + shift + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 ####    RESIZE / MOVE WINDOW    ####
@@ -414,10 +156,33 @@ super + control + shift + {Left,Down,Up,Right}
 
 #######################
 ####    UNKNOWN    ####
-
-#отправить новейший отмеченный узел в новейший предварительно выбранный узел(яхз что это значит)
+#
+#отправить новейший отмеченный узел в новейший предварительно выбранный узел
 #super + y
 #	bspc node newest.marked.local -n newest.!automatic.local
-
+#
+#УСТАНОВИТЬ ФЛАГ УЗЛА /ОТМЕЧЕННЫЙ/ЗАЛОЧЕННЫЙ/ЛИПКИЙ/ПРИВАТНЫЙ
+#super + ctrl + {m,x,y,z}
+#	bspc node -g {marked,locked,sticky,private}
+#
+#ВЫДЕЛИТЬ НЕСКОЛЬКО ПРИЛОЖЕНИЙ НАПРИМЕР ЧТО БЫ ПЕРЕМЕСТИТЬ ГРУППУ ПРИЛОЖЕНИЙ НА ДРУГОЙ ВОРКСПЕЙС
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
+#
+#ПЕРЕХОД НА ПО ИСТОРИИ ОТКРЫТЫХ ПРИЛОЖЕНИЙ
+#super + {o,i}
+#	bspc wm -h off; \
+#	bspc node {older,newer} -f; \
+#	bspc wm -h on
+#
+#ВЫБРАТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
+#super + ctrl + {1-9}
+#	bspc node -o 0.{1-9}
+#
+#ОТМЕНИТЬ ВОРКСПЕЙС НА КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
+#super + ctrl + shift + space
+#	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+#
+#
 ####    UNKNOWN    ####
 #######################
