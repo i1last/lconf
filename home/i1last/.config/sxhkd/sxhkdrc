@@ -1,8 +1,8 @@
-########################
-####   START APPs   ####
+##########################
+####    START APPs    ####
 
 # rofi
-super + d
+super + z
 	rofi -modi drun -show drun -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
@@ -12,7 +12,7 @@ super + Return
 	xfce4-terminal
 
 # rofi: opened windows
-super + ctrl + d
+super + x
 	rofi -modi drun -show window -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
@@ -21,44 +21,43 @@ super + ctrl + d
 super + shift + e
      ~/.config/rofi/powermenu.sh
 
-####   START APPs   ####
-########################
+####    START APPs    ####
+##########################
 
 
 
-################################################
-####          BSPWM & SXHKD CONTROL         ####
+#####################################
+####    BSPWM & SXHKD CONTROL    ####
 
 
 # close {kill} window
-super + {_, shift + }c
+super + {_, shift + }q
 	bspc node -{c}
 
 # restart sxhkd
-super + shift + Escape
+super + control + Escape
         pkill -USR1 -x sxhkd
 
 # {logout}{restart} BSPWM
-super + shift + {q,r}
+super + control + {q,r}
         bspc {quit,wm -r}
 
 # fullscreen mode
-super + m
+super + f
 	bspc desktop -l next
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ДАЛЕЕ ПРОДОЛЖИТЬ РАБОТУ
-
-#ПОМЕНЯТЬ МЕСТАМИ ТЕКУЩЕЕ И САМОЕ БОЛЬШОЕ ОКНО
-super + g
-	bspc node -s biggest.window
-
-####          BSPWM & SXHKD CONTROL         ####
-################################################
 
 
+#ПОМЕНЯТЬ МЕСТАМИ ТЕКУЩЕЕ И САМОЕ БОЛЬШОЕ ОКНО ===================================== Не понятно как работает
+#super + g
+#	bspc node -s biggest.window
 
-###########################################
-####         УПРАВЛЕНИЕ ФЛАГАМИ        ####
-###########################################
+####    BSPWM & SXHKD CONTROL    ####
+#####################################
+
+
+
+#############################
+####    FLAGs CONTROL    ####=============================================Вся эта фигня не понятна
 
 #ПОМЕНЯТЬ СТАТУС ОКНА НА /ТАЙЛОВОЕ/ПСЕВДО ТАЙЛОВОЕ/ПЛАВАЮЩЕЕ/ПОЛНОЭКРАННОЕ
 super + {t,shift + t,s,f}
@@ -68,26 +67,28 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
+####    FLAGs CONTROL    ####
+#############################
 
 
-###########################################
-####         УПРАВЛЕНИЕ ФОКУСОМ        ####
-###########################################
 
-#ПЕРЕМЕСТИТЬ ОКНО
+#############################
+####    FOCUS CONTROL    ####
+
+#ПЕРЕМЕСТИТЬ ОКНО =============================== потестировать и сменить на wasd
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
-#ВЫДЕЛИТЬ НЕСКОЛЬКО ПРИЛОЖЕНИЙ НАПРИМЕР ЧТО БЫ ПЕРЕМЕСТИТЬ ГРУППУ ПРИЛОЖЕНИЙ НА ДРУГОЙ ВОРКСПЕЙС
+#ВЫДЕЛИТЬ НЕСКОЛЬКО ПРИЛОЖЕНИЙ НАПРИМЕР ЧТО БЫ ПЕРЕМЕСТИТЬ ГРУППУ ПРИЛОЖЕНИЙ НА ДРУГОЙ ВОРКСПЕЙС ===================== потестировать
 super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
-#ПЕРЕКЛЮЧЕНИЕ ПО ОТКРЫТЫМ ПРИЛОЖЕНИЯМ В ПРЕДЕЛАХ ОДНОГО ВОРКСПЕЙСА
+#ПЕРЕКЛЮЧЕНИЕ ПО ОТКРЫТЫМ ПРИЛОЖЕНИЯМ В ПРЕДЕЛАХ ОДНОГО ВОРКСПЕЙСА ===================== потестировать шифт
 super + {_,shift + }q
 	bspc node -f {next,prev}.local.!hidden.window
 
-#ПЕРЕХОД ПО ВОРКСПЕЙСАМ
-super + bracket{left,right}
+#ПЕРЕХОД ПО ВОРКСПЕЙСАМ ===================== переназначить на стрелки
+super + bracket{left,right} # bracket == "[]"
 	bspc desktop -f {prev,next}.local
 
 #ВЕРНУТСЯ НА ПРЕДЫДУЩИЙ АКТИВНЫЙ ВОРКСПЕЙС
@@ -104,11 +105,13 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
+####    FOCUS CONTROL    ####
+#############################
 
 
-###########################################
-####       ПРЕДВАРИТЕЛЬНЫМ ВЫБОР       ####
-###########################################
+
+#####################################
+####    PRELIMINARY SELECTION    ####
 
 #ВЫБРАТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
 super + ctrl + {h,j,k,l}
@@ -126,11 +129,14 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
+####    PRELIMINARY SELECTION    ####
+#####################################
 
 
-###########################################
-####   ПЕРЕМЕЩЕНИЕ/ИЗМЕНЕНИЕ РАЗМЕРА   ####
-###########################################
+
+####################################
+####    RESIZE / MOVE WINDOW    ####
+
 
 #УВЕЛИЧИТЬ ОКНО СДВИНУВ ОДНУ ИЗ ЕГО СТОРОН
 super + alt + {h,j,k,l}
@@ -144,13 +150,17 @@ super + alt + shift + {h,j,k,l}
 super + shift + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+####    RESIZE / MOVE WINDOW    ####
+####################################
 
 
 
-
-# === UNKNOWN ===
-
+#######################
+####    UNKNOWN    ####
 
 #отправить новейший отмеченный узел в новейший предварительно выбранный узел(яхз что это значит)
 #super + y
 #	bspc node newest.marked.local -n newest.!automatic.local
+
+####    UNKNOWN    ####
+#######################
